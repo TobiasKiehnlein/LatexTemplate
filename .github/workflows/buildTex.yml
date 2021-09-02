@@ -41,3 +41,11 @@ jobs:
           # Artifact name
           name: pdfs
           path: "*.pdf"
+      - name: Move pdf files to final directory for deployment
+        run: |
+          find . -type f | grep -i pdf$ | xargs -i cp {} dst
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: dst # The folder the action should deploy.
