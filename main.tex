@@ -1,0 +1,98 @@
+\documentclass[
+    paper=a4, % Seitenformat
+    fontsize=10pt,  % Schriftgröße
+    oneside,        % einseitig
+    headsepline,    % Trennlinie für die Kopfzeile
+    notitlepage     % keine extra Titelseite
+]{extarticle}         % KOMA-Script Article
+%------------------------------------------------------------------------
+
+\usepackage[automark]{scrlayer-scrpage}  % Seiten-Stil für scrartcl
+\usepackage[top=25mm, left=25mm, right=20mm]{geometry}          % Oberer Rand 25mm Einrückung
+\usepackage[utf8]{inputenc}              % Eingabekodierung
+\usepackage[T1]{fontenc}                 % Zeichenkodierung
+\usepackage[english,ngerman]{babel}      % Mehrsprachenumgebung, Hauptsprache Deutsch
+\usepackage{setspace}
+\usepackage{latexsym}                    % Latex-Symbole
+\usepackage{amsfonts, amssymb, amstext}  % Mathematische Formeln
+\usepackage{bbm}                         % bbm Schriftart
+\usepackage{graphicx}                    % Abbildungen einbinden
+\usepackage{tikz}                        % Abbildungen zeichnen
+\usepackage{enumitem}
+\usepackage[outputdir=out]{minted}
+\usepackage{mathtools}
+\usepackage{pdfpages}
+\usepackage{algorithm2e}
+\usepackage{fontawesome}
+\usepackage{hyperref}
+\usepackage[backend=biber,style=numeric,url=true,sorting=none,doi=false,urldate=long,natbib=true]{biblatex}
+
+\pagestyle{scrheadings}                  % Kopfzeilen nach scr-Standard
+
+\usetikzlibrary{automata}                % Tikz-Library zum Zeichnen von Automaten
+
+\usepackage{csquotes}
+\MakeOuterQuote{"}
+
+\newcommand{\qed}{\hfill $\Box$}
+\newcommand{\OR}{\vee}
+\newcommand{\AND}{\wedge}
+\newcommand{\NOT}[1]{\overline{#1}}
+
+\newcommand{\spexists}{\ \exists}
+\newcommand{\spforall}{\ \forall}
+% Horizontale Linie mit Abstand zu den Seitenrändern
+\newcommand{\ownline}{\vspace{.7em}\hrule\vspace{.7em}}
+
+\addbibresource{bibliography.bib}
+% Biblatex Konfiguration
+\DeclareFieldFormat{urldate}{\mkbibbrackets{#1}}
+\DeclareNameAlias{sortname}{last-first}
+%\DeclareFieldFormat{date}{(#1)}
+\renewcommand*{\labelnamepunct}{\addcolon\addspace}
+
+%-----------------------------------------------------------------------------------
+%%% DOKUMENT-KOPF %%%
+%-----------------------------------------------------------------------------------
+
+% Hier eingetragene Daten erscheinen im Dokumentkopf
+\author{Tobias Kiehnlein}
+\title{\textbf{Seminar Softwareentwicklung mit Dev(Sec)Ops}\\\large{Dynamic Application Security Testing (DAST)}}
+\date{}
+
+\begin{document}
+    \pagestyle{empty}
+    \maketitle
+    \tableofcontents
+    \newpage
+    \pagestyle{headings}
+
+    \section{Einleitung}
+    Mit der Verbreitung agiler Methoden und moderner Softwareentwicklung wird stets das Ziel verfolgt in kurzen Abständen Änderungen am Code vorzunehmen und diesen zu deployen.
+    Nicht selten stellt sich ein Deployment als vergleichsweise komplex dar. Dies hat zur Folge, dass release cycles länger werden, deployments eine unangenehme Last werden und security oftmals völlig außer Acht gelassen wird.
+
+    Gerade deshalb sollte man sich über die Prozesse Gedanken machen, die nach der Implementation des Codes stehen.
+    Diese Aufgabe stellt sich ebenfalls als nicht ganz trivial heraus. Warum sollte man sich diesen Aufwand also machen?
+    Hier spielen viele Faktoren eine Rolle, allerdings wird sich diese Arbeit primär auf den Aspekt der Anwendungssicherheit fokusieren.
+    Nicht selten haben Entwickler keine oder nur wenig Ahnung von IT-Sicherheit.
+    Nicht grundlos befinden sich seit Jahren bekannte Sicherheitslücken wie SQL-Injections, XSS oder XSRF immernoch unter den häufigsten Sicherheitslücken im Web.\cite{invicti}
+
+    Wie lässt sich nun ein derart fundamentales Problem in der IT Industrie lösen? Die einzige Möglichkeit ist, die eigene Software regelmäßig auf Schwachstellen zu untersuchen, um gerade häufigen Sicherheitslücken vorbeugen zu können.
+    Dies ist jedoch häufig mit hohen Kosten verbunden, da Sicherheitsexperten für hohes Budget wiederholte triviale Tests durchführen müssen.
+    Die Lösung scheint also einfach: Automatische Sicherheitstest, welche die Anwendung auf die bekanntesten Lücken prüft und den Entwicklern und Sicherheitsexperten direktes Feedback gibt, um IT-Security effizient zu gestalten.
+    \section{Vergleich zwischen Burp Suite, OWASP ZAP und GitLab für den Einsatz im DAST}\label{sec:vergleich-zwischen-burp-suite-owasp-zap-und-gitlab-für-den-einsatz-im-dast}
+
+    \subsection{Burp Suite}
+    \subsection{OWASP ZAP}
+    \subsection{GitLab}
+    \subsection{Fazit}
+
+    \section{Analyse eines optimalen Dec(Sec)Ops Prozesses}
+
+    \newpage
+    \printbibliography[heading=bibintoc]
+    \newpage
+    \phantomsection
+    \addcontentsline{toc}{section}{\listfigurename}
+    \listoffigures
+\end{document}
