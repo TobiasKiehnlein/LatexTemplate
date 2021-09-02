@@ -27,8 +27,8 @@ jobs:
         uses: dante-ev/latex-action@latest
         with:
           root_file: main.aux
-          compiler: bibtex
-          args: ''
+          compiler: biber
+          args: main
       - name: pdflatex main
         uses: dante-ev/latex-action@latest
         with:
