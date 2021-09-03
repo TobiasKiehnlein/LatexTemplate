@@ -1,10 +1,9 @@
-# Seminararbeit zum Thema "Dynamic Application Security Testing (DAST)"
+# LatexTemplate
 
-## Seminar Softwareentwicklung mit Dev(Sec)Ops
+## What this is
+This repository is meant to be a template for any Latex project. I personally use it for my papers in university but it can be used for pretty much any latex document.
 
-In diesem Repository sind alle Source Dateien zu meiner Seminararbeit zum Thema DAST zu finden. In einem Seminar zum
-Thema DevOps darf eine Pipeline zum bauen der Seminararbeit natürlich nicht fehlen. Diese kann
-man [hier](https://github.com/TobiasKiehnlein/Seminararbeit-DAST/blob/master/.github/workflows/buildTex.yml) finden. Die
-Seminararbeit selbst lässt sich [hier](https://tobiaskiehnlein.github.io/Seminararbeit-DAST/main.pdf) finden.
+To use this repository just [create a new repository from this template](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/creating-a-repository-from-a-template).
 
-Viel Spaß beim Lesen!
+## Contribution
+Feel free to contribute any changes, ideas or optimizations you have to this repository.
