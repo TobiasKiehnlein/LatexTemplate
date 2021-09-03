@@ -52,12 +52,12 @@
 \renewcommand*{\labelnamepunct}{\addcolon\addspace}
 
 %-----------------------------------------------------------------------------------
-%%% DOKUMENT-KOPF %%%
+%%% DOCUMENT-HEAD %%%
 %-----------------------------------------------------------------------------------
 
-% Hier eingetragene Daten erscheinen im Dokumentkopf
+% This info will be visible in the document head
 \author{Tobias Kiehnlein}
-\title{\textbf{Seminar Softwareentwicklung mit Dev(Sec)Ops}\\\large{Dynamic Application Security Testing (DAST)}}
+\title{\textbf{LatexTemplate}\\\large{Automatically build and deploy your latex documents.}}
 \date{}
 
 \begin{document}
@@ -67,27 +67,13 @@
     \newpage
     \pagestyle{headings}
 
-    \section{Einleitung}
-    Mit der Verbreitung agiler Methoden und moderner Softwareentwicklung wird stets das Ziel verfolgt in kurzen Abständen Änderungen am Code vorzunehmen und diesen zu deployen.
-    Nicht selten stellt sich ein Deployment als vergleichsweise komplex dar. Dies hat zur Folge, dass release cycles länger werden, deployments eine unangenehme Last werden und security oftmals völlig außer Acht gelassen wird.
+    \section{About}
+    This is a sample project with a bibliography to show the capabilities of the pipeline building and deploying this template.\cite{latexTemplate}
 
-    Gerade deshalb sollte man sich über die Prozesse Gedanken machen, die nach der Implementation des Codes stehen.
-    Diese Aufgabe stellt sich ebenfalls als nicht ganz trivial heraus. Warum sollte man sich diesen Aufwand also machen?
-    Hier spielen viele Faktoren eine Rolle, allerdings wird sich diese Arbeit primär auf den Aspekt der Anwendungssicherheit fokusieren.
-    Nicht selten haben Entwickler keine oder nur wenig Ahnung von IT-Sicherheit.
-    Nicht grundlos befinden sich seit Jahren bekannte Sicherheitslücken wie SQL-Injections, XSS oder XSRF immernoch unter den häufigsten Sicherheitslücken im Web.\cite{invicti}
+    \subsection{Some example subsection}
+    \subsection{Another example subsection}
 
-    Wie lässt sich nun ein derart fundamentales Problem in der IT Industrie lösen? Die einzige Möglichkeit ist, die eigene Software regelmäßig auf Schwachstellen zu untersuchen, um gerade häufigen Sicherheitslücken vorbeugen zu können.
-    Dies ist jedoch häufig mit hohen Kosten verbunden, da Sicherheitsexperten für hohes Budget wiederholte triviale Tests durchführen müssen.
-    Die Lösung scheint also einfach: Automatische Sicherheitstest, welche die Anwendung auf die bekanntesten Lücken prüft und den Entwicklern und Sicherheitsexperten direktes Feedback gibt, um IT-Security effizient zu gestalten.
-    \section{Vergleich zwischen Burp Suite, OWASP ZAP und GitLab für den Einsatz im DAST}\label{sec:vergleich-zwischen-burp-suite-owasp-zap-und-gitlab-für-den-einsatz-im-dast}
-
-    \subsection{Burp Suite}
-    \subsection{OWASP ZAP}
-    \subsection{GitLab}
-    \subsection{Fazit}
-
-    \section{Analyse eines optimalen Dec(Sec)Ops Prozesses}
+    \section{Section (Example)}
 
     \newpage
     \printbibliography[heading=bibintoc]
