@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  build_latex:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/workdir
