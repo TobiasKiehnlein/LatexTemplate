@@ -1,0 +1,21 @@
+{
+    "name": "LaTeX Template",
+    "build": {
+        "dockerfile": "../Dockerfile",
+        "context": ".."
+    },
+    "workspaceFolder": "/workdir",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workdir,type=bind,consistency=cached",
+    "overrideCommand": true,
+    "remoteUser": "root",
+    "postCreateCommand": "latexmk -pdf -shell-escape -output-directory=/workdir/out main.tex || true",
+    "customizations": {
+        "jetbrains": {
+            "backend": "IntelliJ",
+            "plugins": [
+                "nl.rubensten.texifyidea",
+                "com.firsttimeinforever.intellij.pdf.viewer.intellij-pdf-viewer"
+            ]
+        }
+    }
+}

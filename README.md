@@ -2,34 +2,63 @@
 
 ## What this is
 
-This repository is meant to be a template for any Latex project. I personally use it for my papers in university, but it
-can be used for pretty much any latex document.
+This repository is a template for LaTeX projects. The pipeline builds
+[main.tex](main.tex) and deploys the resulting PDF to GitHub Pages on every push
+to `master`, available at `https://<your-user>.github.io/<your-repo>/`.
 
-This projects pipeline will automatically build and deploy your pdf document ([main.tex](main.tex) -> main.pdf) in
-GitHub pages on every change on the master branch. [yourusername.github.io/yourrepositoryname]. To adjust this behaviour
-just edit the [github action](.github/workflows/buildTex.yml). For this to happen you must enable github pages in your github repository settings and specify the `gh-pages` branch as the source.
+The workflow uses the modern GitHub Pages deployment flow
+([`actions/deploy-pages`](https://github.com/actions/deploy-pages)). To enable it:
 
-To use this repository
-just [create a new repository from this template](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/creating-a-repository-from-a-template)
-.
+1. Go to **Settings → Pages** in your repository.
+2. Set **Source** to **GitHub Actions**.
+3. Push to `master` — the [workflow](.github/workflows/buildTex.yml) handles the rest.
 
-## Build Latex files
+To start from this template,
+[create a new repository from it](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
 
-There are many ways to compile your latex documents. You can find some docker related files in this repository. These
-can be used to compile your latex document and reload them as soon as changes are detected. The major advantage using
-this docker based approach is the consistency between the local development machines and the build/deployment machine (GitHub runners). Since the same base image is used in the final workflow everything should work exactly as it did
-locally. Another benefit is that you don't have to have latex installed on your local machine. Every other method to
-compile your latex files locally should also work fine but errors and functionality may differ from the final deployment.
+## Build LaTeX files locally
 
-To get the build environment running make sure to have [docker and docker-compose](https://docs.docker.com/get-docker/)
-installed. After that run `docker-compose up -d` in the repository folder. To stop the build environment you can just
-use `docker-compose stop` as you would with every other docker-compose stack.
+A Docker-based build environment is provided so your local toolchain matches the
+one used by CI. It uses the official [`texlive/texlive`](https://hub.docker.com/r/texlive/texlive)
+image and rebuilds the PDF on every file change via `inotifywait`.
 
-> :warning: **If you are using Windows**:
-> When using Windows, you need to make sure that all files are downloaded to a local wsl installation and run docker from there.
-> While compilation will work with the files located on your windows partition hot reloading will fail due to different file processing in Linux and Windows.
-> If that's not an issue, you can run it directly from your Windows partition, otherwise it's recommended to move the files to a wsl installation.
+Requirements: [Docker](https://docs.docker.com/get-docker/) with the built-in
+Compose v2 plugin.
+
+```sh
+docker compose up -d      # start the watcher (PDF appears in ./out)
+docker compose logs -f    # follow build output
+docker compose down       # stop and remove the container
+```
+
+The produced PDF lives in `out/main.pdf`.
+
+Inside the container (via `docker compose exec build_latex sh` or the dev
+container terminal) the following helpers are on `$PATH`:
+
+| command | what it does                                       |
+| ------- | -------------------------------------------------- |
+| `build` | one-shot clean build; exits with latexmk's status  |
+| `watch` | clean build, then rebuild on every file change     |
+| `clean` | wipe the `out/` directory                          |
+
+Any other LaTeX toolchain (TeX Live, MiKTeX, Tectonic, an IDE like TeXstudio or
+the IntelliJ TeXiFy plugin) will also work — the Docker setup is just the most
+reproducible option.
+
+### Dev Container
+
+A [Dev Container](https://containers.dev) definition lives in
+[.devcontainer/](.devcontainer/). Open the repository with JetBrains Gateway
+(or any IntelliJ-based IDE's *Remote Development → Dev Containers* entry point)
+and select this repo — you'll get the same TeX Live environment as CI with the
+[TeXiFy](https://plugins.jetbrains.com/plugin/9473-texify-idea) plugin
+pre-installed.
+
+> **Windows users:** keep the repository inside your WSL filesystem. Hot reload
+> relies on inotify events, which do not cross the Windows/Linux filesystem
+> boundary. Builds will work from a Windows path, but automatic rebuilds won't.
 
 ## Contribution
 
-Feel free to contribute any changes, ideas or optimizations you have to this repository.
+Pull requests and suggestions are welcome.

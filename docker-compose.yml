@@ -1,9 +1,9 @@
-version: '3'
-
 services:
   build_latex:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: latex_builder
     volumes:
       - ./:/workdir
+    restart: unless-stopped

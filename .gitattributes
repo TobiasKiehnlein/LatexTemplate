@@ -1,0 +1,36 @@
+# Normalize line endings to LF in the repo; check out native on each OS.
+* text=auto eol=lf
+
+# Text files
+*.tex     text diff=tex
+*.bib     text
+*.cls     text
+*.sty     text
+*.md      text
+*.yml     text
+*.yaml    text
+*.json    text
+*.html    text
+*.css     text
+*.js      text
+Dockerfile text
+
+# Shell scripts always LF
+*.sh      text eol=lf
+
+# Binary assets — don't try to diff or normalize
+*.pdf     binary
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.gif     binary
+*.svg     text
+*.eps     binary
+*.ttf     binary
+*.otf     binary
+*.woff    binary
+*.woff2   binary
+
+# Generated / vendored — hide from GitHub language stats
+out/**       linguist-generated=true
+public/**    linguist-generated=true

@@ -1,51 +1,59 @@
-name: Build Latex
+name: Build LaTeX
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: [master]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
-  build_latex:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Git repository
-        uses: actions/checkout@v2
-      - name: pdflatex main
-        uses: dante-ev/latex-action@latest
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v4
         with:
           root_file: main.tex
-          compiler: pdflatex
-          args: -interaction=nonstopmode -shell-escape
-      - name: bibtex main
-        uses: dante-ev/latex-action@latest
+          latexmk_use_lualatex: false
+          latexmk_shell_escape: true
+          args: -pdf -interaction=nonstopmode -file-line-error
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v7
         with:
-          root_file: main.aux
-          compiler: biber
-          args: main
-      - name: pdflatex main
-        uses: dante-ev/latex-action@latest
-        with:
-          root_file: main.tex
-          compiler: pdflatex
-          args: -interaction=nonstopmode -shell-escape
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2.2.4
-        with:
-          # Artifact name
           name: pdfs
           path: "*.pdf"
-      - name: Move pdf files to final directory for deployment
+
+      - name: Stage site
         run: |
-          find . -type f | grep -i pdf$ | xargs -i cp {} public
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.4
+          mkdir -p public
+          cp main.pdf public/main.pdf
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
         with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: public # The folder the action should deploy.
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
